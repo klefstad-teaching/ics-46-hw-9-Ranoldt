@@ -32,14 +32,24 @@ vector<int> dijstra_shortest_path(const Graph& G, int source, vector<int>& previ
     return distances;
 }
 
-vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector<int>& previous, int destination) {
+vector<int> reversePath(stack<int>& p) {
     vector<int> path;
-    path.push_back(destination);
+    while (!p.empty()) {
+        path.push_back(p.top());
+        p.pop();
+    }
+    return path;
+}
+
+vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector<int>& previous, int destination) {
+    stack<int> p;
+    p.push(destination);
 
     for (int prev = previous[destination]; prev != -1; prev = previous[prev]) {
-        path.push_back(prev);
+        p.push(prev);
     }
-    path.push_back(-1);
+
+    vector<int> path = reversePath(p);
 
     return path;
 }

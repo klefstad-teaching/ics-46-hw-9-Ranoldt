@@ -1,4 +1,4 @@
-#include "dijstras.h"
+#include "dijkstras.h"
 
 struct dist_comp {
     bool operator()(pair<int, int> x, pair<int,int> y) {
@@ -6,7 +6,7 @@ struct dist_comp {
     }
 };
 
-vector<int> dijstra_shortest_path(const Graph& G, int source, vector<int>& previous) {
+vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous) {
     vector<int> distances(G.numVertices, INF);
     vector<bool> visited(G.numVertices, false);
     distances[source] = 0;
@@ -21,7 +21,7 @@ vector<int> dijstra_shortest_path(const Graph& G, int source, vector<int>& previ
         visited[u] = true;
         for (Edge e: G[u]) {
             int v = e.dst;
-            int weight = e.second;
+            int weight = e.weight;
             if (!visited[v] && distances[u] + weight < distances[v]) {
                 distances[v] = distances[u] + weight;
                 previous[v] = u;

@@ -61,7 +61,8 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 
 void print_word_ladder(const vector<string>& ladder) {
     for (string  word: ladder) {
-        cout << ladder << " ";
+        cout << word << " ";
     }
     cout << endl;
 }
+

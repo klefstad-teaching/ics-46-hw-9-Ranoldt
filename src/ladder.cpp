@@ -11,16 +11,27 @@ void load_words(set<string> & world_list, const string& file_name) {
 }
 
 bool is_adjacent(const string& word1, const string& word2) {
-    int len = word1.length();
-    if (len != word2.length()) {return false;}
-
-    int diff = 0;
-    for (int i = 0; i < len; ++i) {
-        if (word1[i] != word2[i]) {++diff;}
-        if (diff > 1) {return false;}
-    }
-    return difference == 1;
+    return edit_distance_within(word1, word2, 1);
 }
+
+bool edit_distance_within(const std::string& str1, const std::string& str2, int d) {
+    int str1_len = str1.length(); str2_len = str2.length();
+    if (abs(str1_len - str2_len) > d) return false;
+
+    int diff = 0; i = 0; j = 0;
+    while (i < str1_len && j < str2_len) {
+        if (str1[i] != str2[j]) {
+            ++diff;
+            if (diff > d) return false;
+
+            if (str1_len > str2_len) {++i;}
+            else if (str1_len < str2_len) {++j;}
+            else {++i; ++j;}
+        } else {++i; ++j;}
+    }
+    return diff == d;
+}
+
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
     queue<vector<string>> lq;

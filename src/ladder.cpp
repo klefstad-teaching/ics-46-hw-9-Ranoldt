@@ -1,7 +1,7 @@
 #include "ladder.h"
 
 void error(string word1, string word2, string msg) {
-    cerr << "Word 1: " << word1 ", Word 2: " << word2 << " - " << msg << endl;
+    cerr << "Word 1: " << word1 << ", Word 2: " << word2 << " - " << msg << endl;
 }
 
 void load_words(set<string> & world_list, const string& file_name) {
@@ -15,10 +15,10 @@ bool is_adjacent(const string& word1, const string& word2) {
 }
 
 bool edit_distance_within(const std::string& str1, const std::string& str2, int d) {
-    int str1_len = str1.length(); str2_len = str2.length();
+    int str1_len = str1.length(); int str2_len = str2.length();
     if (abs(str1_len - str2_len) > d) return false;
 
-    int diff = 0; i = 0; j = 0;
+    int diff = 0; int i = 0; int j = 0;
     while (i < str1_len && j < str2_len) {
         if (str1[i] != str2[j]) {
             ++diff;
@@ -29,7 +29,7 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
             else {++i; ++j;}
         } else {++i; ++j;}
     }
-    return diff == d;
+    return diff <= d;
 }
 
 
@@ -57,4 +57,11 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
         }
     }
     return vector<string>();
+}
+
+void print_word_ladder(const vector<string>& ladder) {
+    for (string  word: ladder) {
+        cout << ladder << " ";
+    }
+    cout << endl;
 }

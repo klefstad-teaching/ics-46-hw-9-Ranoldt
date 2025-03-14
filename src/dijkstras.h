@@ -32,7 +32,7 @@ struct Graph : public vector<vector<Edge>> {
 inline istream& operator>>(istream& in, Graph& G) {
     if (!(in >> G.numVertices))
         throw runtime_error("Unable to find input file");
-    G.assign(G.numVertices);
+    G.resize(G.numVertices);
     for (Edge e; in >> e;)
         G[e.src].push_back(e);
     return in;
